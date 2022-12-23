@@ -1,12 +1,19 @@
 const express = require("express");
 // Initialize Express
 const app = express();
+var cors = require("cors");
+app.use(cors());
 // body parser
 const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 // import nodemailer
 const nodemailer = require("nodemailer");
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+});
 // Create GET request
 app.get("/", (req, res) => {
   res.send("Express on Vercel");
